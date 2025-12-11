@@ -15,8 +15,6 @@ jobs:
     environment:
       name: prod
     steps:
-    - name: Install dependencies
-      run: apt update
 
     - uses: actions/checkout@v4.2.2
       with:
