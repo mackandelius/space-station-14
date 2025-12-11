@@ -63,10 +63,19 @@ jobs:
     #    tag: ${{ github.ref_name }}
     #    release-dir: release
     - name: Upload client package
-      run: curl --user mackandelius:{{ secrets.PACKAGE_TOKEN }} --upload-file ./release/SS14.Client.zip {{ secrets.CLIENTENDPOINT }}
+      env:
+        PACKAGE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        CLIENTENDPOINT: ${{ secrets.CLIENTENDPOINT }}
+      run: curl --user mackandelius:"$PACKAGE_TOKEN" --upload-file ./release/SS14.Client.zip "$CLIENTENDPOINT"
 
     - name: Upload ARM64 server package
-      run: curl --user mackandelius:{{ secrets.PACKAGE_TOKEN }} --upload-file ./release/SS14.Server_linux-arm64.zip {{ secrets.SERVERENDPOINTARM }}
-
+      env:
+        PACKAGE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        SERVERENDPOINTARM: ${{ secrets.SERVERENDPOINTARM }}
+      run: curl --user mackandelius:"$PACKAGE_TOKEN" --upload-file ./release/SS14.Server_linux-arm64.zip "$SERVERENDPOINTARM"
+      
     - name: Upload x86 server package
-      run: curl --user mackandelius:{{ secrets.PACKAGE_TOKEN }} --upload-file ./release/SS14.Server_linux-x64.zip {{ secrets.SERVERENDPOINTX64 }}
+      env:
+        PACKAGE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        SERVERENDPOINTX64: ${{ secrets.SERVERENDPOINTX64 }}
+      run: curl --user mackandelius:"$PACKAGE_TOKEN" --upload-file ./release/SS14.Server_linux-x64.zip "$SERVERENDPOINTX64"
